@@ -1,0 +1,121 @@
+\documentclass{article}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{soul}
+\newtheorem{definition}{Definition}
+\title{New Eigenvector-type Calculation}
+\author{Bill Adams}
+\begin{document}
+\maketitle
+\begin{abstract}
+These are some notes on my ideas after seeing the unusual behavior
+of the eigenvector calculation on some pairwise comparison matrices.
+Essentially, when one inverts all of the votes in pairwise comparison
+matrix, the resulting priority vector may not be inverted.  In fact,
+even the ordering may not be reversed.
+\end{abstract}
+
+\section{Introduction}
+Consider the following matrix:
+$$A =\begin{bmatrix}
+1   & 1/3 &  3  & 1   \\
+3   & 1   & 1/3 & 3   \\
+1   & 3   & 1   & 1/9 \\
+1   & 1/3 & 9   & 1
+\end{bmatrix}
+$$
+The matrix of the inverse votes is the same as the transpose $A^T$:
+$$A^T =\begin{bmatrix}
+1   & 3   & 1/3 & 1   \\
+1/3 & 1   & 3   & 1/3 \\
+1   & 1/3 & 1   & 9   \\
+1   & 3   & 1/9 & 1
+\end{bmatrix}
+$$
+If we let $\lambda$ be the function that returns the largest
+eigenvector of a matrix, we have the following from the standard
+calculations.
+\begin{eqnarray*}
+	\lambda(A)&=&(0.1788,0.2967, 0.1797, 0.3448) \\
+	\lambda(A^T)&=&(0.1868, 0.2401, 0.4000, 0.1731)
+\end{eqnarray*}
+Notice that the rankings are:
+\begin{eqnarray*}
+	\mathrm{Rank}(A)&=&(4, 2, 3, 1) \\
+	\mathrm{Rank}(A^T)&=&(3, 2, 1, 4)
+\end{eqnarray*}
+In other words, the rankings do not reverse as expected!
+
+\section{Calculation}
+The new calculation is based upon taking the geometric average of
+the columns, a technique already described elsewhere.  The first
+basic calculation is simply that, but let's define it anyways.
+
+\begin{definition}[Geometric Average]
+\label{def:geomavg1}
+	Let $\mathbf{s}=(s_1, \ldots, s_n)$ be a sequence of non-negative
+	numbers.  The \ul{geometric average} of $\mathbf{s}$, denoted by
+	$\widehat{\mu}(\mathbf{s})$ is given by:
+	$$\widehat{\mu}(\mathbf{s}) =
+	\left(\prod_{s_i \neq 0}s_i\right)^{1/m}$$
+	where $m$ is the number of $s_i$'s not equal to zero, if $m\neq 0$.
+	and $1$ otherwise.
+\end{definition}
+
+\begin{definition}[Geometric average priority calculation]
+	If $A$ is a pairwise comparison matrix of size $n$ we define the geometric
+	average of the columns $\mathbf{g}(A)$ as the column vector
+	defined by the formula:
+	$$\mathbf{g}(A)_{i} = \widehat{\mu}(A_{,i})$$
+	where $A_{,i}$ is the $i^{th}$ column of $A$.
+\end{definition}
+
+If we come up with an alternate definition of matrix multiplication
+we can express the previous definition differently.
+
+\begin{definition}[BE multiplication $\circledast$ for vectors]
+	If $V$ is a row vector and $W$ is a column vector, both of size
+	$n$, then we define their \ul{BE product} by:
+	$$V \circledast W := \widehat{\mu}(V \bigodot W)$$
+	where $\bigodot$ represents the Hadamard product, i.e.
+	component-wise multiplication.
+\end{definition}
+
+\begin{definition}[BE multiplication $\circledast$ for matrices]
+	If $M$ is an $(m,n)$ matrix and $N$ is an $(n,q)$ matrix, their
+	BE product is an $(m,q)$ matrix, whose entries are given by:
+	$$
+	\left(M \circledast N\right)_{i,j} =
+	A_{i,} \circledast A_{, j}
+	$$
+	where $A_{i,}$ is the $i^{th}$ row of $A$ and $A_{,j}$ is the
+	$j^{th}$ column of $A$.
+\end{definition}
+
+With this notation, and if we write $E_n$ for the column vector of
+size $n$ all of whose entries are 1, we can rewrite Definition
+\ref{def:geomavg1}.
+
+\begin{definition}[Geometric average priority calculation V2]
+	If $M$ is an $(n,n)$ pairwise comparison matrix, we can rewrite
+	the geometric average calculation as follows:
+	$$
+	\mathbf{g}(A) = M \circledast E_n
+	$$
+\end{definition}
+
+\begin{definition}[Bill's Priority Calculation]
+	If $M$ is an $(n,n)$ pairwise comparison matrix, we define the
+	\ul{Bill Priority Calculation} in terms of the following sequence.
+	\begin{eqnarray*}
+		v_1 &=& M \circledast E_n \\
+		v_{k+1} &=& M \circledast v_k
+	\end{eqnarray*}
+	And we define the Bill Priority of the pairwise comparison
+	matrix $M$ as:
+	$$\mathbf{\beta}(M) = \lim_{k \to \infty} v_k$$
+\end{definition}
+
+\end{document}
