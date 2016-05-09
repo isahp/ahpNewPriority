@@ -1,4 +1,6 @@
 import numpy as np
+
+
 def geom_avg(vals):
     rval=1.0
     count = 0
