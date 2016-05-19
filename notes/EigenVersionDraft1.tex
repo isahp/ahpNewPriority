@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{soul}
+\newtheorem{definition}{Definition}
+\newtheorem{note}{Note}
+\title{New Eigenvector-type Calculation}
+\author{Bill Adams}
+\begin{document}
+\maketitle
+\begin{abstract}
+These are a continuation of some notes on the eigenvector calculation
+for priorities from a pairwise comparison matrix.  In this version
+I explain the new calculation as a tweak to the eigenvector calculation.
+\end{abstract}
+
+\section{Introduction}
+Consider the following matrix:
+$$A =\begin{bmatrix}
+1   & 1/3 &  3  & 1   \\
+3   & 1   & 1/3 & 3   \\
+1   & 3   & 1   & 1/9 \\
+1   & 1/3 & 9   & 1
+\end{bmatrix}
+$$
+The matrix of the inverse votes is the same as the transpose $A^T$:
+$$A^T =\begin{bmatrix}
+1   & 3   & 1/3 & 1   \\
+1/3 & 1   & 3   & 1/3 \\
+1   & 1/3 & 1   & 9   \\
+1   & 3   & 1/9 & 1
+\end{bmatrix}
+$$
+If we let $\lambda$ be the function that returns the largest
+eigenvector of a matrix, we have the following from the standard
+calculations.
+\begin{eqnarray*}
+	\lambda(A)&=&(0.1788,0.2967, 0.1797, 0.3448) \\
+	\lambda(A^T)&=&(0.1868, 0.2401, 0.4000, 0.1731)
+\end{eqnarray*}
+Notice that the rankings are:
+\begin{eqnarray*}
+	\mathrm{Rank}(A)&=&(4, 2, 3, 1) \\
+	\mathrm{Rank}(A^T)&=&(3, 2, 1, 4)
+\end{eqnarray*}
+In other words, the rankings do not reverse as expected!
+
+\section{Matrix Multiplication Review}
+This new calculation is based upon the eigenvector calculation, but by replacing
+the summation that comes from matrix multiplication by a product.  Recall
+the definition of matrix multiplication:
+\begin{definition}[Standard Matrix Multiplication]
+\label{defn:matmult1}
+Let $A$ be an $m \times n$ matrix and $B$ be an $n \times k$ matrix.  
+Then the result of multiplying $A$ by $B$ is an $m \times k$ matrix,
+denote by $AB$ whose row $i$ column $j$ entry is given by:
+\begin{equation}
+(AB)_{i,j} := \sum_{l=1}^{n} a_{i,l}b_{l,j}
+\label{eqn:matmult1}	
+\end{equation}
+\end{definition}
+\begin{note}
+\label{note:matmultdot}
+	This is really based on the vector dot product.  Let $A_{i,-}$
+	be the $i^{th}$ row of $A$ and $B_{-,j}$ be the $j^{th}$ column of
+	$B$.  Then the right hand side of Equation \ref{eqn:matmult1} is
+	really $A_{i,-} \cdot B_{-,j}$, i.e. the vector dot product of
+	row $i$ of $A$ with column $j$ of $B$.
+\end{note}
+This leads us naturally to another formula for matrix multiplication.
+
+\begin{definition}[Matrix Multiplication Dot Product Form]
+\label{defn:matmult2}
+	Let $A$ and $B$ be as in Definition \ref{defn:matmult1}, then:
+	$$(AB)_{i,j} := A_{i,-} \cdot B_{-,j}$$
+\end{definition}
+
+\section{Standard Largest Eigenvector Method}
+There is a standard trick for calculating the largest eigenvector, namely
+we raise the matrix to larger powers and act on the unit column vector (the
+column vector of all 1's), and normalize.  That calculation converges
+to the largest eigenvector.
+
+However, we can also simply raise the matrix to larger and larger powers
+and analyze the columns.  Multiplying by the unit column vector is simply
+averaging the columns of those power matrices.
+So, to a certain extent the largest eigenvector simply falls out of the
+limit of the powers of the matrix (after dividing those matrices by a
+suitable scalar, for instance the appropriate power of the determinant).
+
+There is a good reason to use this calculation to calculate the priority
+vector for a pairwise comparison matrix $A$.  That is because $A^k$
+represents the \ul{sum} of the weights of all length $k$ paths.  What
+I mean here is that $(A^k)_{i,j}$ is the sum of all of the weights derived
+from length $k$ paths from $i$ to $j$.
+
+\begin{note}
+That is the key point, and our key area of difficulty.  $A^k$ is
+the \ul{sum} of all of the weights, not the product!
+\end{note}
+
+\begin{note}
+$A$ starts off as a reciprocal matrix, but none of the $A^k$ for $k>1$
+will be reciprocal because of the summation occurring.  It would seem
+natural to want that reciprocality to be true for those powers.	
+\end{note}
+
+\begin{note}[Spoiler]
+The new calculation has the $A^k$-like calculated matrices as all
+being reciprocal if $A$ was reciprocal.	
+\end{note}
+
+\section{New Calculation}
+I propose we change the $A^k$ terms by a new type of matrix multiplication,
+for the new definition.
+\begin{definition}[New Multiplication]
+\label{defn:bmatmult1}
+Let $A$ be an $m \times n$ matrix and $B$ be an $n \times k$ matrix.  
+Then the result of \ul{bmultiplying} $A$ by $B$ is an $m \times k$ matrix,
+denote by $A\circledast B$ whose row $i$ column $j$ entry is given by:
+\begin{equation}
+(A\circledast B)_{i,j} := \prod_{l=1}^{n} a_{i,l}b_{l,j}
+\label{eqn:bmatmult1}
+\end{equation}
+\end{definition}
+\begin{note}[New dot product]
+The above definition screams to be rewritten in terms of a modified
+dot product, the \ul{bdot}, which we define here.	
+\end{note}
+\begin{definition}[BDot Product]
+	If $\mathbf{v}$ and $\mathbf{w}$ are vectors of length $n$, then we
+	denote the \ul{bdot} product of $\mathbf{v}$ and $\mathbf{w}$ by
+	$\mathbf{v}\circledcirc \mathbf{w}$ and define it as follows:
+	$$
+	\mathbf{v} \circledcirc \mathbf{w}:= \prod_{i=1}^n v_i w_i
+	$$
+\end{definition}
+Using the above definition of the bdot product of vectors, we can
+rewrite Definition \ref{defn:bmatmult1} similar to the way
+we rewrote Definition \ref{defn:matmult1} using the standard dot product
+to arrive at Definition \ref{defn:matmult2}.
+
+\begin{definition}[New Multiplication BDot Form]
+	\label{defn:bmatmult2}
+	Let $A$ and $B$ be as in Definition \ref{defn:bmatmult1}, then:
+	$$(A\circledast B)_{i,j} := A_{i,-} \circledcirc B_{-,j}$$
+
+\end{definition}
+\end{document}
+
+
