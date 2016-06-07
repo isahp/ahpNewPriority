@@ -2,3 +2,7 @@
 python/.idea
 *.pyc
 Jupyter/prioritycalcs/.idea
+
+Jupyter/prioritycalcs/.project
+
+Jupyter/prioritycalcs/.pydevproject
