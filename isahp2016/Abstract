@@ -2,12 +2,12 @@ There are many methods of deriving priority vectors from pairwise comparison
 matrices, e.g. the standard largest eigenvector, the geometric mean, Harker's
 method, the least squares method, etc.  Through our work on the SimpleAHP
 web application, we discovered an issue with most of these methods, that
-confused of our users.  The confusion arises when there are two or more voters
+confused our users.  The issue arises when there are two or more voters
 on a particular pairwise set, and those users have opposite votes on everything
 (we call them doppleganger voters).  Given doppleganger voters one would
 expect the resulting priority sets to be inverses, or at least have reversed
 rankings.  This is not always the case (this result has long been known, but
-the SimpleAHP web application simply made this idea more apparent).
+the SimpleAHP web application made this idea more apparent).
 
 While the geometric mean method does address this issue, it has its own
 shortcomings.  Therefore in this paper we describe two new priority vector
@@ -16,5 +16,4 @@ theoretic spirit of the eigenvector method.  We compare and contrast the
 results of the priority calculations with some of the standard methods
 (eigenvector and geoemtric mean) on some differentiating examples.
 In addition we provide open source implementations of the new calculations in
-several languages (Python, R, Excel) in a free available github repository
-(those desiring other language implementation can contact the author).  
+several languages (Python, R, Excel) in a free available github repository.  
