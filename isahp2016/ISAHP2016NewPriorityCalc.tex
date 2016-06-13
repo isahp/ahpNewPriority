@@ -12,6 +12,7 @@
 \usepackage{natbib}
 \usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage[top=1in,bottom=1in,left=1.5in,right=1.5in]{geometry}
 %\usepackage{fullpage}
 \title{NEW PRIORITY CALCULATIONS}
@@ -23,6 +24,7 @@
 \cfoot{\thepage}
 \rfoot{London, U.K. \\ August 4-7, 2016}
 \newtheorem{definition}{Definition}
+\newtheorem{note}{Note}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \renewcommand{\maketitle}{\begin{center}{\Large \textbf{\thetitle}} \end{center}}
@@ -85,7 +87,20 @@ had reversed the order of the alternatives being compared.  In fact we found
 that it did not reverse the order, and eventually we discovered this fact is
 indeed well known, (e.g. see \cite{choo2004common}).  However this behavior
 of the largest eigenvector was troublesome for our target user, namely youth
-and those with no experience in AHP theory.
+and those with no experience in AHP theory.  Because this concept, of
+doppleganger voters having reversed priorities, we use the
+phrase \ul{the doppleganger property} in the following sense.
+\begin{definition}[Doppleganger property]
+	We say that a priority vector calculation $\mathcal{P}$
+	has the \ul{weak doppleganger property} if, for
+	all pairwise comparison matrices $M$ the ranking of $\mathcal{P}(M)$
+	is the inverse ranking of $\mathcal{P}(M^{T})$.
+	
+	We say that a priority vector calculation $\mathcal{P}$ has
+	the \ul{strong doppleganger property} if, for all pairwise comparison
+	matrices $M$, we have
+	$$\frac{1}{\mathcal{P}(M)} = \mathcal{P}(M^T).$$
+\end{definition}
 
 In this paper we put forward two novel methods for calculating priority
 vectors from a pairwise comparison matrix.  Both are adaptations of the
@@ -136,7 +151,8 @@ eigenvector.
 	sequence of vectors $\mathbf{v}_k$, where
 	\begin{eqnarray*}
 		\mathbf{v}_0 &=& (1, 1, \ldots, 1) \\
-		\mathbf{v}_{k+1} &=& Normalize(M \times \mathbf{v}_k)
+		\mathbf{v}_{k+1} &=& Normalize(M \times \mathbf{v}_k) \\
+		\mathcal{E}(M) &=& \lim_{k \to \infty} \mathbf{v}_k
 	\end{eqnarray*}
 	and $Normalize(\mathbf{v})$ means divide the vector $\mathbf{v}$ by the sum of its entries.  And by $M \times \mathbf{v}_k$ we mean standard matrix multiplication.
 \end{definition}
@@ -184,6 +200,51 @@ a power weighting type calculation.  This leads us to our \ul{Power Weighted Eig
 In the \texttt{Jupyter} directory of the github repository at \cite{githubahppri}
 we have Python based Jupyter workbooks that perform the standard eigenvector 
 calculation as well as Definition \ref{def:geigen} and Definition \ref{def:pweigen}.
+In the Jupyter workbook \texttt{Comparing\-Eigen\-To\-New\-Calc\-.ipynb}
+in \cite{githubahppri} we define the following matrices to perform the new calculations
+on.
+\begin{eqnarray*}
+	&S =
+	\begin{pmatrix}
+		1 &  1/3 & 3 & 1 \\ 
+ 		3 & 1 & 1/3  & 3 \\ 
+        1/3 & 3 & 1 & 1/9 \\ 
+        1 & 1/3 & 9 & 1
+	\end{pmatrix}&
+	\hspace{0.5in} E =
+	\begin{pmatrix}
+	  1 &     2 &     3 &     4 \\
+  	  1/2 &   1   &  5  &   6 \\
+   	  1/3 & 1/5  &  1  &   7  \\
+  	  1/4 & 1/6 &  1/7 &  1	
+	\end{pmatrix}
+	\\
+	&M =
+	\begin{pmatrix}
+		1 &   2 &   0.5 &  1 \\
+        0.5 & 1 &   1 &    1 \\
+      	2 &   1 &   1 &    1 \\
+ 		1 &   1 &   1 &    1
+	\end{pmatrix} &
+	\hspace{0.5in}
+	M' = 
+	\begin{pmatrix}
+        1 & 2 & 1/2 &  1/1.1 \\
+        1/2 & 1 & 1 & 1 \\
+        2 & 1 & 1 & 1 \\
+        1.1 & 1 & 1 & 1		
+	\end{pmatrix}
+\end{eqnarray*}
+
+The above matrices have the following reason for their inclusion in this paper:
+\begin{framed}
+\begin{description}
+	\item [S:] This was the first user vote that we tried the doppleganger property on, and discovered that the largest eigenvector did not have the that property on this vote set.
+	\item [E:] This was a first working example based on the matrix $S$, where we reduced the inconsistency.
+	\item [M:] A truly minimal working example showing the largest eigenvector priority vector calculation does not satisfy either the strong or weak doppleganger property.
+	\item [M':] A slightly less minimal version of the matrix $M$.
+\end{description}	
+\end{framed}
 
 \section{Limitations}
 
