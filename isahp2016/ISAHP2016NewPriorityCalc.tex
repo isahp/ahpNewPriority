@@ -1,0 +1,120 @@
+\documentclass[11pt]{article}
+%\documentclass{minimal}
+\usepackage[annataritalic]{tengwarscript}
+\usepackage{framed}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[all,cmtip]{xy}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{soul}
+\usepackage{natbib}
+\usepackage[top=1in,bottom=1in,left=1.5in,right=1.5in]{geometry}
+%\usepackage{fullpage}
+\title{NEW PRIORITY CALCULATIONS}
+\pagestyle{fancy}
+\chead{}
+\lhead{\textit{ISAHP Article: \thetitle}}
+\rhead{}
+\lfoot{\textit{International Symposium on the \\ Analytic Hierarchy Process}}
+\cfoot{\thepage}
+\rfoot{London, U.K. \\ August 4-7, 2016}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\maketitle}{\begin{center}{\Large \textbf{\thetitle}} \end{center}}
+%%%Numbered bib section
+\renewcommand{\bibsection}{\section{Key References}}
+%%%%%%%%%
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{abstract}
+There are many methods of deriving priority vectors from pairwise comparison
+matrices, e.g. the standard largest eigenvector, the geometric mean, Harker's
+method, the least squares method, etc.  Through our work on the SimpleAHP
+web application, we discovered an issue with most of these methods, that
+confused our users.  The issue arises when there are two or more voters
+on a particular pairwise set, and those users have opposite votes on everything
+(we call them doppleganger voters).  Given doppleganger voters one would
+expect the resulting priority sets to be inverses, or at least have reversed
+rankings.  This is not always the case (this result has long been known, but
+the SimpleAHP web application made this idea more apparent).
+
+While the geometric mean method does address this issue, it has its own
+shortcomings.  Therefore in this paper we describe two new priority vector
+calculations that address doppleganger voters, while retaining the graph
+theoretic spirit of the eigenvector method.  We compare and contrast the
+results of the priority calculations with some of the standard methods
+(eigenvector and geoemtric mean) on some differentiating examples.
+In addition we provide open source implementations of the new calculations in
+several languages (Python, R, Excel) in a free available github repository.  \end{abstract}
+
+% $$
+% \xymatrix{
+%  & \hbox{\mbox{\emph{Areas Choice Goal}}} \ar[dl] \ar[d]|{\hbox{Alternatives}} \ar[dr] \ar[drr]\\
+% Math & Animals & Library & Kitchen }$$
+
+\section{Introduction}
+The process of deriving a priority vector from a pairwise comparison matrix is a
+very well studied problem.
+
+
+\section{Literature Review}
+
+\section{Hypotheses/Objectives}
+
+\section{Research Design/Methodology}
+
+\section{Data/Model Analysis}
+
+\section{Limitations}
+
+\section{Conclusions}
+
+
+\bibliographystyle{apalike}
+\bibliography{OurPapers}
+
+ \section{Appendix 1}
+%\begin{center}
+%	Just a closing thought:
+%\end{center} 
+ 
+%\begin{minipage}[t]{0.5\textwidth}
+% \tengwarannataritalic[1.09]
+% \tengwa{254}
+% \Textendedcalma\TTthreedots\Tnuumen\Tessenuquerna\TTthreedots\Tungwe\Tando\Toore\TTrightcurl\Tumbar\Ttinco\TTthreedots\Tlambealt\TTrightcurl\Tquesse\TTdoublerightcurl
+% \Tromanperiod\Ts
+% \Textendedcalma\TTthreedots\Tnuumen\Tessenuquerna\TTthreedots\Tungwe\Tungwe\Tumbar\TTnasalizer\TTdot\Ttinco\TTthreedots\Tlambe\TTrightcurl
+% \tengwa{255}\\
+% \Textendedcalma\TTthreedots\Tnuumen\Tessenuquerna\TTthreedots\Tungwe\Tthuule\Troomen\Tquesse\TTthreedots\Ttinco\TTthreedots\Tlambealt\TTrightcurl\Tquesse\TTdoublerightcurl
+% \Tromanperiod\Ts
+% \Textendedungwe\TTthreedots\Tumbar\Toore\TTrightcurl\Tesse\Tkern{-0.2}\Tmalta\TTrightcurl\Textendedcalma\TTdot\Ttelco\TTdot\Tquesse\Troomen\Tparma\TTnasalizer\TTdot\Ttinco\TTthreedots\Tlambe\TTrightcurl
+% \newline
+%\end{minipage}
+\begin{minipage}[c]{0.6\textwidth}
+\begin{framed}
+\includegraphics[width=\textwidth]{2000px-One_Ring_inscription}
+\end{framed}
+\end{minipage}
+\begin{minipage}[c]{0.4\textwidth}
+\begin{framed}
+ One ring to rule them all \newline
+ One ring to find them \newline
+ One ring to bring them all \newline
+ And in the darkness bind them 
+\end{framed}
+\end{minipage}
+
+%{\telcontar 
+%Ash nazg durbatulûk\newline
+%ash nazg gimbatul\newline 
+%ash nazg thrakatulûk \newline 
+%agh burzum-ishi krimpatul
+%}
+
+
+
+\end{document}
