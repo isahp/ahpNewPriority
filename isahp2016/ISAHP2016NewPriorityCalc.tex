@@ -10,6 +10,7 @@
 \usepackage{titling}
 \usepackage{soul}
 \usepackage{natbib}
+\usepackage{amsthm}
 \usepackage[top=1in,bottom=1in,left=1.5in,right=1.5in]{geometry}
 %\usepackage{fullpage}
 \title{NEW PRIORITY CALCULATIONS}
@@ -20,6 +21,7 @@
 \lfoot{\textit{International Symposium on the \\ Analytic Hierarchy Process}}
 \cfoot{\thepage}
 \rfoot{London, U.K. \\ August 4-7, 2016}
+\newtheorem{definition}{Definition}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \renewcommand{\maketitle}{\begin{center}{\Large \textbf{\thetitle}} \end{center}}
@@ -58,14 +60,69 @@ several languages (Python, R, Excel) in a free available github repository.  \en
 
 \section{Introduction}
 The process of deriving a priority vector from a pairwise comparison matrix is a
-very well studied problem.
+very well studied problem.  However, our work creating the SimpleAHP web 
+application (see \cite{adamsmont} for more information) brought to light some
+subtleties surrounding the standard largest eigenvector calculation.
+In the SimpleAHP web application, participants can provide symbolic votes
+of \emph{better} and \emph{much better}, and the facilitator can adjust the
+meaning of those symbolic votes.  This structure allows for easy construction
+of doppleganger voters.
+\begin{definition}[Doppleganger voter pair]
+	Two voters on a pairwise comparison set are said to be \ul{dopplergangers} if
+	the pairwise comparison matrix of one user is the transpose of the other user.
+\end{definition}
+Doppleganger voters happened naturally with our participants because of the
+reduced amount of choice.  However, a second natural way to construct doppleganger
+voters in the SimpleAHP web application is to change the meaning of \emph{better} 
+to be a number less than 1, and similarly for \emph{much better}.  Effectively we
+are making an inverse interpretation of what \emph{better} and \emph{much better} 
+mean.
 
+We constructed a doppleganger voter in this fashion on our first participant
+and attempted to verify our calculations by verifying that the doppleganger voter
+had reversed the order of the alternatives being compared.  In fact we found
+that it did not reverse the order, and eventually we discovered this fact is
+indeed well known, (e.g. see \cite{choo2004common}).  However this behavior
+of the largest eigenvector was troublesome for our target user, namely youth
+and those with no experience in AHP theory.
+
+In this paper we put forward two novel methods for calculating priority
+vectors from a pairwise comparison matrix.  Both are adaptations of the
+standard largest eigenvector calculation, and both are the result of a limiting
+process very similar to the largest eigenvector's standard computational
+algorithm.
 
 \section{Literature Review}
+This work is heavily influenced by our work in \cite{adamsmont} where we create
+tools and techniques that allow youths, and those inexperienced in AHP, to
+nonetheless use AHP successfully on their own, without the need of 
+facilitator or expert in the theory.  Through that work we discovered some
+properties of the largest eigenvector priority vector calculation that
+confused our target audience (and in truth it confused us initially as well).
+
+This behavior of the largest eigenvector, namely that the largest eigenvector
+of the transpose and the largest eigenvector of the original pairwise matrix need
+not be related, is well known and can be found in \cite{choo2004common} or
+\cite{saaty1990eigenvector}.
+However, because of the simplicity of changing symbolic votes in the SimpleAHP
+web interface, this property of the largest eigenvector is more readily observable
+and causes issues for those new to AHP theory.
+The geometric average is a standard method that remedies the transpose issue, but
+it has its own shortcomings (see \cite{barzilai1994ahp} for details of using
+geometric averages of columns).  Instead we opted to create two new
+eigenvector inspired, priority vector calculations, both of which respect the
+doppleganger property.
 
 \section{Hypotheses/Objectives}
+This paper defines two new priority vector calculations, algorithmically.
+We compare and contrast these new calculations with the standard eigenvector
+method and provide some examples that elucidate the differences in approach.
 
 \section{Research Design/Methodology}
+For this research, we develop programming libraries for several languages that
+implement the new algorithm.  These libraries are freely available on our github
+page at \cite{githubahppri}.  In addition there is a publicly available gitter
+room for discussion of these algorithms and results (see \cite{gitterahppri}).
 
 \section{Data/Model Analysis}
 
