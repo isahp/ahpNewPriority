@@ -11,6 +11,7 @@
 \usepackage{soul}
 \usepackage{natbib}
 \usepackage{amsthm}
+\usepackage{amssymb}
 \usepackage[top=1in,bottom=1in,left=1.5in,right=1.5in]{geometry}
 %\usepackage{fullpage}
 \title{NEW PRIORITY CALCULATIONS}
@@ -124,7 +125,65 @@ implement the new algorithm.  These libraries are freely available on our github
 page at \cite{githubahppri}.  In addition there is a publicly available gitter
 room for discussion of these algorithms and results (see \cite{gitterahppri}).
 
+The two new calculations are based upon the standard largest eigenvector calculation
+method. In particular we mean the following method for calculating the largest
+eigenvector.
+
+\begin{definition}[Largest eigenvector algorithm]
+	\label{def:eigen}
+	Let $M$ be an $n \times n$ pairwise comparison matrix. The 
+	largest eigenvector is the limit of the
+	sequence of vectors $\mathbf{v}_k$, where
+	\begin{eqnarray*}
+		\mathbf{v}_0 &=& (1, 1, \ldots, 1) \\
+		\mathbf{v}_{k+1} &=& Normalize(M \times \mathbf{v}_k)
+	\end{eqnarray*}
+	and $Normalize(\mathbf{v})$ means divide the vector $\mathbf{v}$ by the sum of its entries.  And by $M \times \mathbf{v}_k$ we mean standard matrix multiplication.
+\end{definition}
+
+Our first new priority vector calculation, which we call the \ul{Geometric Eigenvector} 
+calculation, tweaks Definition \ref{def:eigen} by changing the notion of ``matrix
+multiplication'' to that of geometric average.  We can state the definition as follows.
+\begin{definition}[Geometric Eigenvector algorithm]
+	\label{def:geigen}
+	Let $M$ be an $n \times n$ pairwise comparison matrix.  The 
+	\ul{Geometric Eigenvector} is the limit of the following sequence of
+	vectors $\mathbf{v}_0, \mathbf{v}_1, \ldots$ where
+	\begin{eqnarray*}
+		\mathbf{v}_0 &=& (1, 1, \ldots, 1) \\
+		\mathbf{v}_{k+1} &=& (M \widehat{\boxtimes} \mathbf{v}_k) \\
+		\mathcal{GE}(M) &=& \lim_{k\to \infty} v_k
+	\end{eqnarray*}
+	where $M \widehat{\boxtimes} \mathbf{v}$ is a column vector, whose $i^{th}$ entry
+	is the geometric average of the vector
+	$$\left(v_1 m_{i,1}, v_2 m_{i,2}, \ldots, v_n m_{i,n}\right)$$	
+\end{definition}
+
+Our second new priority vector calculation follows the outline of Definition 
+\ref{def:eigen}, changing the matrix multiplication, this time doing
+a power weighting type calculation.  This leads us to our \ul{Power Weighted Eigenvector} calculation.
+
+\begin{definition}[Power Weighted Eigenvector]
+	\label{def:pweigen}
+	Let $M$ be an $n \times n$ pairwise comparison matrix.  The 
+	\ul{Power Weighted Eigenvector} is the limit of the following sequence of
+	vectors $\mathbf{v}_0, \mathbf{v}_1, \ldots$ where
+	\begin{eqnarray*}
+		\mathbf{v}_0 &=& (1, 1, \ldots, 1) \\
+		\mathbf{v}_{k+1} &=& (M ^ {\mathbf{v}_k}) \\
+		\mathcal{PWE}(M) &=& \lim_{k\to \infty} v_k
+	\end{eqnarray*}
+	where $M ^{\mathbf{v}}$ is a column vector, whose $i^{th}$ entry
+	is the weighted geometric average $i^{th}$ row of $M$ by $\mathbf{v}$, in
+	other words:
+	$$\left(M^{\mathbf{v}}\right)_i = \left(\prod_{m_{ij}\neq 0} m_{ij}^{v_j}\right) ^{1/\sum_{m_{ij}\neq 0} v_j} $$
+	
+\end{definition}
+
 \section{Data/Model Analysis}
+In the \texttt{Jupyter} directory of the github repository at \cite{githubahppri}
+we have Python based Jupyter workbooks that perform the standard eigenvector 
+calculation as well as Definition \ref{def:geigen} and Definition \ref{def:pweigen}.
 
 \section{Limitations}
 
