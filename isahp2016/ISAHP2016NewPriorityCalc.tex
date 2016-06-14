@@ -91,15 +91,21 @@ and those with no experience in AHP theory.  Because this concept, of
 doppleganger voters having reversed priorities, we use the
 phrase \ul{the doppleganger property} in the following sense.
 \begin{definition}[Doppleganger property]
+	We say that the priority vector calculation has the \ul{weak
+	doppleganger property for a pairwise matrix $M$} if the ranking of
+	$\mathcal{P}(M)$ is the inverse ranking of $\mathcal{P}(M^T)$.  
+	We say $\mathcal{P}$ has the \ul{strong doppleganger property for a pairwise matrix $M$}
+	if 
+	$$\frac{1}{\mathcal{P}(M)} = \mathcal{P}(M^T)$$
+
 	We say that a priority vector calculation $\mathcal{P}$
-	has the \ul{weak doppleganger property} if, for
-	all pairwise comparison matrices $M$ the ranking of $\mathcal{P}(M)$
-	is the inverse ranking of $\mathcal{P}(M^{T})$.
+	has the \ul{weak doppleganger property} if it has the weak
+	doppleganger property for all pairwise comparison matrices.
 	
 	We say that a priority vector calculation $\mathcal{P}$ has
-	the \ul{strong doppleganger property} if, for all pairwise comparison
-	matrices $M$, we have
-	$$\frac{1}{\mathcal{P}(M)} = \mathcal{P}(M^T).$$
+	the \ul{strong doppleganger property} if it has the strong doppleganger
+	property for all pairwise comparison matrices.
+	
 \end{definition}
 
 In this paper we put forward two novel methods for calculating priority
@@ -227,13 +233,13 @@ on.
  		1 &   1 &   1 &    1
 	\end{pmatrix} &
 	\hspace{0.5in}
-	M' = 
-	\begin{pmatrix}
-        1 & 2 & 1/2 &  1/1.1 \\
-        1/2 & 1 & 1 & 1 \\
-        2 & 1 & 1 & 1 \\
-        1.1 & 1 & 1 & 1		
-	\end{pmatrix}
+%	M' = 
+%	\begin{pmatrix}
+%        1 & 2 & 1/2 &  1/1.1 \\
+%        1/2 & 1 & 1 & 1 \\
+%        2 & 1 & 1 & 1 \\
+%        1.1 & 1 & 1 & 1		
+%	\end{pmatrix}
 \end{eqnarray*}
 
 The above matrices have the following reason for their inclusion in this paper:
@@ -242,7 +248,7 @@ The above matrices have the following reason for their inclusion in this paper:
 	\item [S:] This was the first user vote that we tried the doppleganger property on, and discovered that the largest eigenvector did not have the that property on this vote set.
 	\item [E:] This was a first working example based on the matrix $S$, where we reduced the inconsistency.
 	\item [M:] A truly minimal working example showing the largest eigenvector priority vector calculation does not satisfy either the strong or weak doppleganger property.
-	\item [M':] A slightly less minimal version of the matrix $M$.
+%	\item [M':] A slightly less minimal version of the matrix $M$.
 \end{description}	
 \end{framed}
 
@@ -269,9 +275,76 @@ or strong doppleganger property on this matrix and its transpose.
 	\item the Power Weighted Eigenvector does not have either the strong or weak doppleganger property on this matrix.
 \end{enumerate}
 
+\subsection{Results of $E$}
+For the matrix $E$ we have the following results.
+\begin{eqnarray*}
+	\mbox{Inconsistency of } E &=& 0.207 \\
+	\mathcal{E}(E) &=& ( 0.408,  0.376,  0.163,  0.053) \\
+	1/\mathcal{E}(E) &=& ( 0.081,  0.088,  0.203,  0.628) \\
+	\mathcal{E}(E^T) &=& ( 0.076,  0.084,  0.207,  0.634) \\
+	\mathcal{GE}(E) &=& (  0.419,  0.372,  0.156,  0.053) \\
+	1/\mathcal{GE}(E) &=& (  0.078,  0.088,  0.21,   0.624) \\
+	\mathcal{GE}(E^T) &=& (  0.078,  0.088,  0.21,   0.624) \\
+	\mathcal{PWE}(E) &=& ( 0.492,  0.31,   0.127,  0.071) \\
+	1/\mathcal{PWE}(E) &=& ( 0.075,  0.118,  0.289,  0.518) \\
+	\mathcal{PWE}(E^T) &=& ( 0.117  0.097  0.134  0.651)
+\end{eqnarray*}
+The key takeaways from this example are:
+\begin{enumerate}
+	\item The inconsistency is not as hideous as the previous example, but is still larger than some would like to see.
+	\item The eigenvector calculation has the weak doppleganger property for this matrix.
+	\item The Geometric Eigenvector has both the weak and strong doppleganger properties for this matrix.
+	\item  The Power Weighted Eigenvector  has neither the weak or strong doppleganger property for this matrix.
+\end{enumerate}
+
+\subsection{Results of $M$}
+This is a minimal working example of failure of the eigenvector to have either the weak 
+or strong doppleganger properties, which also has very low inconsistency.
+\begin{eqnarray*}
+	\mbox{Inconsistency of } E &=& 0.069 \\
+	\mathcal{E}(E) &=& ( 0.253,  0.209,  0.299 , 0.239) \\
+	1/\mathcal{E}(E) &=& (  0.243,  0.295,  0.205,  0.257) \\
+	\mathcal{E}(E^T) &=& (  0.253,  0.299,  0.209,  0.239) \\
+	\mathcal{GE}(E) &=& ( 0.248,  0.209,  0.295,  0.248) \\
+	1/\mathcal{GE}(E) &=& (  0.248,  0.295 , 0.209,  0.248) \\
+	\mathcal{GE}(E^T) &=& (  0.248,  0.295 , 0.209,  0.248) \\
+	\mathcal{PWE}(E) &=& ( 0.238,  0.214,  0.297,  0.252) \\
+	1/\mathcal{PWE}(E) &=& (  0.259,  0.289,  0.208,  0.245) \\
+	\mathcal{PWE}(E^T) &=& ( 0.238,  0.297,  0.214,  0.252)
+\end{eqnarray*}
+The key takeaways from this example are:
+\begin{enumerate}
+	\item The inconsistency is well within normal tolerances.
+	\item The eigenvector calculation does not have the weak or strong doppleganger property for this matrix.
+	\item The Geometric Eigenvector has both weak and strong doppleganger properties for this matrix.
+	\item The Power Weighted Eigenvector does not have the weak or strong doppleganger property for this matrix.
+\end{enumerate}
+
+\begin{note}
+In all of the example matrices the Geometric Eigenvector calculation, see Definition
+\ref{def:geigen}, has both the strong and weak doppleganger properties.  This is
+no accident, the Geometric Eigenvector was designed to satisfy the strong doppleganger
+property.
+\end{note}
+
 \section{Limitations}
+Both of these calculations are newly developed, and thus there are certainly
+ramifications that of using these that we have not explored.  Further
+the Power Weighted Eigenvector method does not even address the doppleganger issue.
+However, the Geometric Eigenvector method has several features in its favor:
+\begin{enumerate}
+	\item It is the eigenvector where arithmetic averages are replaced by geometric averages.
+	\item It deals with 0's more naturally than the standard Harker fix for the eigenvector (namely the 0's are handled more naturally).  However it is very likely that we could adjust the standard eigenvector in a similar manner and thus avoid the Harker fix.
+	\item It has the strong doppleganger property for all pairwise comparison matrices.
+\end{enumerate}
 
 \section{Conclusions}
+Both of the new calculations deserve further investigation.  We need to write up a
+proof of the well defined nature of both calculations, as well as the Geometric
+Eigenvector satisfying the strong doppleganger property.  The Power Weighted 
+Eigenvector method, although not satisfying the doppleganger property has a useful
+interpretation as the limit of the power weighted columns, much as the eigenvector
+is the limit of the arithmetic weighted columns.
 
 
 \bibliographystyle{apalike}
